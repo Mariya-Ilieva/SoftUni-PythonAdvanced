@@ -1,0 +1,36 @@
+def shopping_cart(*args):
+    products = {'Soup': [], 'Pizza': [], 'Dessert': []}
+    res = []
+
+    for p in args:
+        if p == 'Stop':
+            break
+        meal = p[0]
+        product = p[1]
+
+        if meal == 'Soup' and len(products['Soup']) < 3:
+            if product not in products[meal]:
+                products[meal].append(product)
+        if meal == 'Pizza' and len(products['Pizza']) < 4:
+            if product not in products[meal]:
+                products[meal].append(product)
+        if meal == 'Dessert' and len(products['Dessert']) < 2:
+            if product not in products[meal]:
+                products[meal].append(product)
+
+    result = {a: b for a, b in sorted(products.items(), key=lambda x: (-len(x[1]), x[0]))}
+
+    for k, v in result.items():
+        res.append(f'{k}:')
+        for i in sorted(v):
+            res.append(f' - {i}')
+
+    return '\n'.join(res) if any(result.values()) else 'No products in the cart!'
+
+
+print(shopping_cart(
+    ('Pizza', 'ham'),
+    ('Dessert', 'milk'),
+    ('Pizza', 'ham'),
+    'Stop',
+))
