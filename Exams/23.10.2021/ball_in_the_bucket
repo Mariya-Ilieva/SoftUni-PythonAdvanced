@@ -1,0 +1,27 @@
+matrix = []
+res = 0
+
+for row in range(6):
+    line = input().split()
+    matrix.append(line)
+
+for _ in range(3):
+    t_row, t_col = input().replace('(', '').replace(')', '').split(', ')
+    t_row = int(t_row)
+    t_col = int(t_col)
+
+    if 0 <= t_row < 6 and 0 <= t_col < 6:
+        if matrix[t_row][t_col] == 'B':
+            for i in range(len(matrix)):
+                if matrix[i][t_col].isdigit():
+                    res += int(matrix[i][t_col])
+            matrix[t_row][t_col] = '.'
+
+if 100 <= res <= 199:
+    print(f'Good job! You scored {res} points, and you\'ve won Football.')
+elif 200 <= res <= 299:
+    print(f'Good job! You scored {res} points, and you\'ve won Teddy Bear.')
+elif res >= 300:
+    print(f'Good job! You scored {res} points, and you\'ve won Lego Construction Set.')
+else:
+    print(f'Sorry! You need {100 - res} points more to win a prize.')
