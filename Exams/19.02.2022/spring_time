@@ -1,0 +1,25 @@
+def start_spring(**kwargs):
+    result = {}
+    output = []
+    for k, v in kwargs.items():
+        if v not in result:
+            result[v] = []
+        result[v].append(k)
+    res = {a: b for a, b in sorted(result.items(), key=lambda x: (-len(x[1]), x[0]))}
+
+    for key, value in res.items():
+        output.append(f'{key}:')
+        for f in sorted(value):
+            output.append(f'-{f}')
+
+    return '\n'.join(output)
+
+
+example_objects = {"Magnolia": "tree",
+                   "Swallow": "bird",
+                   "Thrushes": "bird",
+                   "Pear": "tree",
+                   "Cherries": "tree",
+                   "Shrikes": "bird",
+                   "Butterfly": "insect"}
+print(start_spring(**example_objects))
