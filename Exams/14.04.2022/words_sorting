@@ -1,0 +1,22 @@
+def words_sorting(*args):
+    output = {}
+    res = []
+    for word in args:
+        output[word] = sum([ord(x) for x in word])
+
+    if sum(output.values()) % 2 != 0:
+        result = {a: b for a, b in sorted(output.items(), key=lambda x: -x[1])}
+        for k, v in result.items():
+            res.append(f'{k} - {v}')
+    else:
+        for k, v in sorted(output.items()):
+            res.append(f'{k} - {v}')
+
+    return '\n'.join([str(x) for x in res])
+
+
+print(
+    words_sorting(
+        'cacophony',
+        'accolade'
+    ))
