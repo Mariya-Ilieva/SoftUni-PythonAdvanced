@@ -1,0 +1,31 @@
+def list_manipulator(*n):
+    res = []
+
+    if n[1] == 'add' and n[2] == 'beginning':
+        res = list(n[3:]) + n[0]
+    elif n[1] == 'add' and n[2] == 'end':
+        res = n[0] + list(n[3:])
+    elif n[1] == 'remove' and n[2] == 'beginning':
+        if len(n) == 4:
+            index = int(n[3])
+            res = n[0][index:]
+        else:
+            res = n[0][1:]
+    elif n[1] == 'remove' and n[2] == 'end':
+        if len(n) == 4:
+            index = int(n[3])
+            res = n[0][:-index]
+        else:
+            res = n[0][:-1]
+
+    return res
+
+
+print(list_manipulator([1, 2, 3], "remove", "end"))
+print(list_manipulator([1, 2, 3], "remove", "beginning"))
+print(list_manipulator([1, 2, 3], "add", "beginning", 20))
+print(list_manipulator([1, 2, 3], "add", "end", 30))
+print(list_manipulator([1, 2, 3], "remove", "end", 2))
+print(list_manipulator([1, 2, 3], "remove", "beginning", 2))
+print(list_manipulator([1, 2, 3], "add", "beginning", 20, 30, 40))
+print(list_manipulator([1, 2, 3], "add", "end", 30, 40, 50))
