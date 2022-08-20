@@ -1,0 +1,36 @@
+from collections import deque
+
+vowels = deque(x for x in input().split())
+consonants = [x for x in input().split()]
+words = ['rose', 'tulip', 'lotus', 'daffodil']
+output = ''
+letters = []
+flower = True
+
+while vowels and consonants:
+    letters.append(vowels.popleft())
+    letters.append(consonants.pop())
+
+    for word in words:
+        flower = True
+        for ch in word:
+            if ch not in letters:
+                flower = False
+                break
+        if flower:
+            output = word
+            break
+
+    if flower:
+        break
+
+if flower:
+    print(f'Word found: {output}')
+else:
+    print('Cannot find any word!')
+
+if vowels:
+    print(f'Vowels left: {" ".join(x for x in vowels)}')
+
+if consonants:
+    print(f'Consonants left: {" ".join(x for x in consonants)}')
