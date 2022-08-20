@@ -1,0 +1,21 @@
+def get_magic_triangle(n):
+    output = []
+
+    for row in range(n):
+        line = []
+        for col in range(row + 1):
+            if col == 0:
+                line.append(1)
+            elif col == row:
+                line.append(1)
+            else:
+                a = output[row - 1][col]
+                b = output[row - 1][col - 1]
+                line.append(a + b)
+
+        output.append(line)
+
+    return output
+
+
+print(get_magic_triangle(8))
