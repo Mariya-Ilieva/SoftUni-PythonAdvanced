@@ -1,0 +1,41 @@
+matrix = []
+white_row, white_col, black_row, black_col = 0, 0, 0, 0
+
+for row in range(8):
+    line = input().split()
+    for col in range(8):
+        if line[col] == 'w':
+            white_row = row
+            white_col = col
+        elif line[col] == 'b':
+            black_row = row
+            black_col = col
+    matrix.append(line)
+
+while True:
+    if 0 <= white_row - 1 < 8 and 0 <= white_col - 1 < 8 and matrix[white_row - 1][white_col - 1] == 'b':
+        print(f'Game over! White win, capture on {chr(97 + black_col)}{8 - black_row}.')
+        break
+    elif 0 <= white_row - 1 < 8 and 0 <= white_col + 1 < 8 and matrix[white_row - 1][white_col + 1] == 'b':
+        print(f'Game over! White win, capture on {chr(97 + black_col)}{8 - black_row}.')
+        break
+    else:
+        white_row -= 1
+        matrix[white_row][white_col] = 'w'
+        matrix[white_row - 1][white_col] = '-'
+        if white_row == 0:
+            print(f'Game over! White pawn is promoted to a queen at {chr(97 + white_col)}8.')
+            break
+    if 0 <= black_row + 1 < 8 and 0 <= black_col - 1 < 8 and matrix[black_row + 1][black_col - 1] == 'w':
+        print(f'Game over! Black win, capture on {chr(97 + white_col)}{8 - white_row}.')
+        break
+    elif 0 <= black_row + 1 < 8 and 0 <= black_col + 1 < 8 and matrix[black_row + 1][black_col + 1] == 'w':
+        print(f'Game over! Black win, capture on {chr(97 + white_col)}{8 - white_row}.')
+        break
+    else:
+        black_row += 1
+        matrix[black_row][black_col] = 'b'
+        matrix[black_row - 1][black_col] = '-'
+        if black_row == 7:
+            print(f'Game over! Black pawn is promoted to a queen at {chr(97 + black_col)}1.')
+            break
