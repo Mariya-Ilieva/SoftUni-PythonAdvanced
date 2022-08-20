@@ -1,0 +1,43 @@
+from collections import deque
+
+effects = deque([int(x) for x in input().split(', ')])
+powers = [int(x) for x in input().split(', ')]
+
+output = {'Palm Fireworks': 0, 'Willow Fireworks': 0, 'Crossette Fireworks': 0}
+
+while effects and powers:
+    effect = effects.popleft()
+    power = powers.pop()
+
+    if power <= 0:
+        effects.appendleft(effect)
+    elif effect <= 0:
+        powers.append(power)
+
+    elif (effect + power) % 3 == 0 and (effect + power) % 5 != 0:
+        output['Palm Fireworks'] += 1
+    elif (effect + power) % 3 != 0 and (effect + power) % 5 == 0:
+        output['Willow Fireworks'] += 1
+    elif (effect + power) % 3 == 0 and (effect + power) % 5 == 0:
+        output['Crossette Fireworks'] += 1
+    else:
+        powers.append(power)
+        effect -= 1
+        effects.append(effect)
+
+    if output['Palm Fireworks'] >= 3 and output['Willow Fireworks'] >= 3 and output['Crossette Fireworks'] >= 3:
+        break
+
+if output['Palm Fireworks'] >= 3 and output['Willow Fireworks'] >= 3 and output['Crossette Fireworks'] >= 3:
+    print('Congrats! You made the perfect firework show!')
+else:
+    print('Sorry. You can\'t make the perfect firework show.')
+
+if effects:
+    print(f'Firework Effects left: {", ".join([str(x) for x in effects])}')
+
+if powers:
+    print(f'Explosive Power left: {", ".join([str(x) for x in powers])}')
+
+for k, v in output.items():
+    print(f'{k}: {v}')
