@@ -1,0 +1,54 @@
+from collections import deque
+
+effects = deque([int(x) for x in input().split(', ')])
+casing = [int(x) for x in input().split(', ')]
+
+output = {'Datura Bombs': 0, 'Cherry Bombs': 0, 'Smoke Decoy Bombs': 0}
+datura = False
+cherry = False
+smoke_decoy = False
+
+while effects and casing:
+    n = effects.popleft()
+    m = casing.pop()
+    bomb = n + m
+
+    if bomb == 40:
+        output['Datura Bombs'] += 1
+        if output['Datura Bombs'] == 3:
+            datura = True
+    elif bomb == 60:
+        output['Cherry Bombs'] += 1
+        if output['Cherry Bombs'] == 3:
+            cherry = True
+    elif bomb == 120:
+        output['Smoke Decoy Bombs'] += 1
+        if output['Smoke Decoy Bombs'] == 3:
+            smoke_decoy = True
+    else:
+        m -= 5
+        casing.append(m)
+        effects.appendleft(n)
+
+    if datura and cherry and smoke_decoy:
+        break
+
+if datura and cherry and smoke_decoy:
+    print('Bene! You have successfully filled the bomb pouch!')
+else:
+    print('You don\'t have enough materials to fill the bomb pouch.')
+
+
+if effects:
+    print(f'Bomb Effects: {", ".join([str(x) for x in effects])}')
+else:
+    print('Bomb Effects: empty')
+
+if casing:
+    print(f'Bomb Casings: {", ".join([str(x) for x in casing])}')
+else:
+    print('Bomb Casings: empty')
+
+if output:
+    for k, v in sorted(output.items()):
+        print(f'{k}: {v}')
