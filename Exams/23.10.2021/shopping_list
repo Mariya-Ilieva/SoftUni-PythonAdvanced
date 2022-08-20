@@ -1,0 +1,30 @@
+def shopping_list(item, **n):
+    res = []
+
+    if item < 100:
+        return 'You do not have enough budget.'
+
+    for k, v in n.items():
+        price = float(v[0])
+        quantity = int(v[1])
+
+        if price * quantity <= item:
+            res.append(f'You bought {k} for {price*quantity:.2f} leva.')
+            item -= price * quantity
+
+            if len(res) == 5:
+                break
+
+    return '\n'.join(res)
+
+
+print(shopping_list(104,
+                    cola=(1.20, 2),
+                    candies=(0.25, 15),
+                    bread=(1.80, 1),
+                    pie=(10.50, 5),
+                    tomatoes=(4.20, 1),
+                    milk=(2.50, 2),
+                    juice=(2, 3),
+                    eggs=(3, 1),
+                    ))
