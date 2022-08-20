@@ -1,0 +1,30 @@
+def stock_availability(*n):
+
+    if n[1] == 'delivery':
+        for i in n[2:]:
+            n[0].append(i)
+
+    elif n[1] == 'sell':
+        if len(n) > 2:
+            if str(n[2]).isdigit():
+                for i in range(int(n[2])):
+                    if n[0]:
+                        n[0].pop(0)
+            else:
+                for i in n[2:]:
+                    while i in n[0]:
+                        n[0].remove(i)
+
+        else:
+            n[0].pop(0)
+
+    return n[0]
+
+
+print(stock_availability(["choco", "vanilla", "banana"], "delivery", "caramel", "berry"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "delivery", "cookie","banana"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "sell"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "sell", 3))
+print(stock_availability(["chocolate", "chocolate", "banana"], "sell", "chocolate"))
+print(stock_availability(["cookie", "chocolate", "banana"], "sell", "chocolate"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "sell", "cookie"))
