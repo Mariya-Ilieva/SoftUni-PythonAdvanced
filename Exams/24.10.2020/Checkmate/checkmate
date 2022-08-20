@@ -1,0 +1,31 @@
+chess_board = []
+
+for row in range(8):
+    line = input().split()
+    chess_board.append(line)
+
+king_row = 0
+king_col = 0
+queens = []
+
+for row in range(8):
+    for col in range(8):
+        if chess_board[row][col] == 'K':
+            king_row = row
+            king_col = col
+
+for x in range(-1, 2):
+    for y in range(-1, 2):
+        for z in range(8):
+            c_row = king_row - z * x
+            c_col = king_col - z * y
+            if 0 <= c_row < 8 and 0 <= c_col < 8:
+                if chess_board[c_row][c_col] == 'Q':
+                    queens.append([c_row, c_col])
+                    break
+
+if queens:
+    for queen in queens:
+        print(queen)
+else:
+    print('The king is safe!')
