@@ -1,0 +1,22 @@
+from collections import deque
+
+
+def best_list_pureness(n: list, k):
+    n = deque(n)
+    pureness = {}
+
+    for i in range(k + 1):
+        res = 0
+        for j in range(len(n)):
+            res += n[j] * j
+        if res not in pureness:
+            pureness[res] = i
+        n.appendleft(n.pop())
+
+    best_pureness = max(pureness)
+    return f'Best pureness {best_pureness} after {pureness[best_pureness]} rotations'
+
+
+test = ([1, 2, 3, 4, 5], 10)
+result = best_list_pureness(*test)
+print(result)
