@@ -1,0 +1,23 @@
+def numbers_searching(*n):
+    output = []
+    res1 = []
+    res2 = []
+    new = [x for x in n if n.count(x) > 1]
+
+    for i in new:
+        if i not in res1:
+            res1.append(i)
+
+    for j in range(min(n), max(n)+1):
+        if j not in n:
+            res2.append(j)
+
+    output.append(max(res2))
+    output.append(sorted(res1))
+
+    return output
+
+
+print(numbers_searching(1, 2, 4, 2, 5, 4))
+print(numbers_searching(5, 5, 9, 10, 7, 8, 7, 9))
+print(numbers_searching(50, 50, 47, 47, 48, 45, 49, 44, 47, 45, 44, 44, 48, 44, 48))
