@@ -1,0 +1,61 @@
+def move_rover(r, c):
+    if r < 0:
+        return 5, c
+    elif r >= 6:
+        return 0, c
+    if c < 0:
+        return r, 5
+    elif c >= 6:
+        return r, 0
+
+
+def next_position(r, c, command):
+    if command == 'left':
+        return r, c - 1
+    elif command == 'right':
+        return r, c + 1
+    elif command == 'up':
+        return r - 1, c
+    elif command == 'down':
+        return r + 1, c
+
+
+water_deposit = 0
+metal_deposit = 0
+concrete_deposit = 0
+
+matrix = []
+rover_row = 0
+rover_col = 0
+
+for row in range(6):
+    line = input().split()
+    matrix.append(line)
+    for col in range(6):
+        if matrix[row][col] == 'E':
+            rover_row = row
+            rover_col = col
+
+commands = input().split(', ')
+for cmd in commands:
+    rover_row, rover_col = next_position(rover_row, rover_col, cmd)
+    if rover_row < 0 or rover_row >= 6 or rover_col < 0 or rover_col >= 6:
+        rover_row, rover_col = move_rover(rover_row, rover_col)
+
+    if matrix[rover_row][rover_col] == 'W':
+        water_deposit += 1
+        print(f'Water deposit found at ({rover_row}, {rover_col})')
+    elif matrix[rover_row][rover_col] == 'M':
+        metal_deposit += 1
+        print(f'Metal deposit found at ({rover_row}, {rover_col})')
+    elif matrix[rover_row][rover_col] == 'C':
+        concrete_deposit += 1
+        print(f'Concrete deposit found at ({rover_row}, {rover_col})')
+    elif matrix[rover_row][rover_col] == 'R':
+        print(f'Rover got broken at ({rover_row}, {rover_col})')
+        break
+
+if water_deposit >= 1 and metal_deposit >= 1 and concrete_deposit >= 1:
+    print('Area suitable to start the colony.')
+else:
+    print('Area not suitable to start the colony.')
