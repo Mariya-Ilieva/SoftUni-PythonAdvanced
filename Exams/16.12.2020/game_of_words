@@ -1,0 +1,49 @@
+def commands(r, c, d):
+    if d == 'up':
+        r, c = r - 1, c
+    elif d == 'right':
+        r, c = r, c + 1
+    elif d == 'down':
+        r, c = r + 1, c
+    elif d == 'left':
+        r, c = r, c - 1
+
+    return r, c
+
+
+matrix = []
+p_row = 0
+p_col = 0
+word = input()
+size = int(input())
+
+for row in range(size):
+    line = list(input())
+    matrix.append(line)
+
+for row in range(size):
+    for col in range(size):
+        if matrix[row][col] == 'P':
+            p_row = row
+            p_col = col
+
+n = int(input())
+for _ in range(n):
+    cmd = input()
+    c_row, c_col = commands(p_row, p_col, cmd)
+
+    if c_row < 0 or c_col < 0 or c_row >= size or c_col >= size:
+        if word:
+            word = word[0:-1]
+        c_row, c_col = p_row, p_col
+    else:
+        matrix[p_row][p_col] = '-'
+        p_row, p_col = c_row, c_col
+        if matrix[p_row][p_col] != '-':
+            el = matrix[p_row][p_col]
+            word = word + str(el)
+        matrix[p_row][p_col] = 'P'
+
+print(word)
+for row in matrix:
+    print(''.join(row))
