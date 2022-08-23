@@ -1,0 +1,14 @@
+def add_songs(*args):
+    output = ''
+    res = {}
+    for song in args:
+        if song[0] not in res:
+            res[song[0]] = []
+        if song[1]:
+            res[song[0]].append(song[1])
+    for title, lyrics in res.items():
+        output += f'- {title}\n'
+        for line in lyrics:
+            output += '\n'.join(line)
+            output += '\n'
+    return output.strip()
