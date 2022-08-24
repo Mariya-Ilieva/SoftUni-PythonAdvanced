@@ -12,6 +12,5 @@ def add_songs(*args):
         output += f'- {title}\n'
         for line in lyrics:
             output += '\n'.join(line)
-            output += '\n'
-            
+            output += '\n'           
     return output.strip()
